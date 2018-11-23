@@ -3,23 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Persona;
 
-class AuthController extends Controller
+class PersonaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ( ($request->tipo  == 'estudiante')) {
-            return view('home_estudiante');
-        }elseif ($request->tipo == 'empleado' ) {
-            return view('home_empleado');
-        }
-
-        return view('auth.login');
+        return view('empleados.read_estudiante')->with('estudiantes', Persona::all());
     }
 
     /**
@@ -29,8 +24,7 @@ class AuthController extends Controller
      */
     public function create()
     {
-        return view('auth.registro');
-
+       return view('empleados.create_estudiante');
     }
 
     /**
@@ -41,7 +35,9 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Persona::create($request->all());
+
+        return redirect()->route('persona.index');
     }
 
     /**
@@ -63,7 +59,9 @@ class AuthController extends Controller
      */
     public function edit($id)
     {
-        //
+        $estudiante = Persona::find($id);
+
+        return view('empleados.edit_estudiante')->with('estudiante', $estudiante);
     }
 
     /**
@@ -75,7 +73,17 @@ class AuthController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $estudiante = Persona::find($id);
+
+        $estudiante->nombre = $request->nombre;
+        $estudiante->apellido = $request->apellido;
+        $estudiante->edad =  $request->edad;
+        $estudiante->correo = $request->correo;
+        $estudiante->password = $request->password;
+
+        $estudiante->save();
+
+        return redirect()->route('persona.index');
     }
 
     /**
@@ -86,6 +94,10 @@ class AuthController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $estudiante = Persona::find($id);
+
+        $estudiante->delete();
+
+        return redirect()->route('persona.index');
     }
 }

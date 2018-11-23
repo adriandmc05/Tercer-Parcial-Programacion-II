@@ -28,3 +28,29 @@ Route::get('registro', function(){
 
 Route::resource('auth', 'AuthController');
 Route::resource('usuario', 'UserController');
+
+
+Route::resource('persona', 'PersonaController');
+Route::resource('empleado', 'EmpleadoController');
+Route::resource('libro', 'LibroController');
+
+Route::get('libro/{id}/destroy', [
+
+	'uses' => 'LibroController@destroy',
+	'as' => 'libro.destroy'
+
+]);
+
+Route::get('persona/{id}/destroy', [
+
+	'uses' => 'PersonaController@destroy',
+	'as' => 'persona.destroy'
+
+]);
+
+Route::get('empleado/{id}/destroy', [
+
+	'uses' => 'EmpleadoController@destroy',
+	'as' => 'empleado.destroy'
+
+]);

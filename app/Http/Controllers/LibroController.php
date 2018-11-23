@@ -3,23 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Libro;
 
-class AuthController extends Controller
+class LibroController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ( ($request->tipo  == 'estudiante')) {
-            return view('home_estudiante');
-        }elseif ($request->tipo == 'empleado' ) {
-            return view('home_empleado');
-        }
-
-        return view('auth.login');
+        return view('empleados.read_libro')->with('libros', Libro::all());
     }
 
     /**
@@ -29,8 +24,7 @@ class AuthController extends Controller
      */
     public function create()
     {
-        return view('auth.registro');
-
+        return view('empleados.create_libro');
     }
 
     /**
@@ -41,7 +35,9 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Libro::create($request->all());
+
+        return redirect()->route('libro.index');
     }
 
     /**
@@ -63,7 +59,9 @@ class AuthController extends Controller
      */
     public function edit($id)
     {
-        //
+        $libro = Libro::find($id);
+
+        return view('empleados.edit_libro')->with('libro', $libro);
     }
 
     /**
@@ -75,7 +73,20 @@ class AuthController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $libro = Libro::find($id);
+
+        $libro->nombre = $request->nombre;
+        $libro->editorial = $request->editorial;
+        $libro->ano =  $request->ano;
+        $libro->ubicacion = $request->ubicacion;
+        $libro->autor = $request->autor;
+        $libro->tipo = $request->tipo;
+        $libro->area_conocimiento = $request->area_conocimiento;
+        $libro->dias_prestamo = $request->dias_prestamo;
+
+        $libro->save();
+
+        return redirect()->route('libro.index');
     }
 
     /**
@@ -86,6 +97,10 @@ class AuthController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $libro = Libro::find($id);
+
+        $libro->delete();
+
+        return redirect()->route('libro.index');
     }
 }

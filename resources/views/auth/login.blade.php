@@ -1,4 +1,4 @@
-@extends('template.main')
+@extends('template.home')
 
 @section('title','login')
 
@@ -9,7 +9,7 @@
 	<div class="row justify-content-md-center">
 
 			<dir class="col-sm-6  col-md-6 offset-md-3 mt-3">
-				<h2 >Login Cable Unet</h2>
+				<h2 >Login</h2>
 			</dir>
 			
 		</div>
@@ -29,7 +29,7 @@
 
 								<div class="form-group">
 									<label for="username">Usuario</label>
-									<input type="text" name="username" class="form-control" required="" autocomplete="off" autofocus="" placeholder="Usuario">
+									<input type="text" name="nombre" class="form-control" required="" autocomplete="off" autofocus="" placeholder="Usuario">
 
 									<label for="name">Contraseña</label>
 									<input type="password" name="password" class="form-control" required="" autocomplete="off" autofocus="" placeholder="*********">

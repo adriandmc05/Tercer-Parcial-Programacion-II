@@ -1,1 +1,1 @@
-@extends('template.main')
+@extends('template.home')

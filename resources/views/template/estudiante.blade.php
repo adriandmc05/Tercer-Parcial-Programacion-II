@@ -21,22 +21,34 @@
                 <ul class="navbar-nav mr-auto">
 
 	                <li class="nav-item active">
-	                    <a class="nav-link" href="{{ route('persona.create') }}">Crear estudiante<span class="sr-only">(current)</span></a>
+	                    <a class="nav-link" href="#">Registrar libro<span class="sr-only">(current)</span></a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="{{ route('libro.create') }}">
+	                    <a class="nav-link" href="#">
 	                    crear libro</a>
 	                </li>
                  
 	                <li class="nav-item">
-	                    <a class="nav-link " href="{{ route('empleado.create') }}">Crear Empleado</a>
+	                    <a class="nav-link " href="#">Crear Empleado</a>
 	                </li>
+
+	               <li class="nav-item dropdown">
+				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          Libros
+				        </a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				          <a class="dropdown-item" href="{{ route('libro.create') }}">crear</a>
+				          <a class="dropdown-item" href="#">barra</a>
+				          <div class="dropdown-divider"></div>
+				          <a class="dropdown-item" href="#">barra</a>
+				        </div>
+ 				    </li>
 
                 </ul>
 
                 <ul class="navbar-nav mr-3">
 	                <li class="nav-item active">
-	                    <a class="nav-link" href="{{ route('auth.index')}}">Cerrar sesión <span class="sr-only">(current)</span></a>
+	                    <a class="nav-link" href="#">Cerrar sesión <span class="sr-only">(current)</span></a>
 	                </li>	        
             </div>
 		</div>

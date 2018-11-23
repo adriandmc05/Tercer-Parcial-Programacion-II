@@ -3,23 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Empleado;
 
-class AuthController extends Controller
+class EmpleadoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ( ($request->tipo  == 'estudiante')) {
-            return view('home_estudiante');
-        }elseif ($request->tipo == 'empleado' ) {
-            return view('home_empleado');
-        }
-
-        return view('auth.login');
+        return view('empleados.read_empleado')->with('empleados', Empleado::all());
     }
 
     /**
@@ -29,8 +24,7 @@ class AuthController extends Controller
      */
     public function create()
     {
-        return view('auth.registro');
-
+        return view('empleados.registro_empleado');
     }
 
     /**
@@ -41,7 +35,9 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Empleado::create($request->all());
+
+        return redirect()->route('empleado.index');
     }
 
     /**
@@ -63,7 +59,9 @@ class AuthController extends Controller
      */
     public function edit($id)
     {
-        //
+        $empleado = Empleado::find($id);
+
+        return view('empleados.edit_empleado')->with('empleado', $empleado);
     }
 
     /**
@@ -75,7 +73,17 @@ class AuthController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $empleado = Empleado::find($id);
+
+        $empleado->nombre = $request->nombre;
+        $empleado->apellido = $request->apellido;
+        $empleado->edad =  $request->edad;
+        $empleado->correo = $request->correo;
+        $empleado->password = $request->password;
+
+        $empleado->save();
+
+        return redirect()->route('empleado.index');
     }
 
     /**
@@ -86,6 +94,10 @@ class AuthController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $empleado = Empleado::find($id);
+
+        $empleado->delete();
+
+        return redirect()->route('empleado.index');
     }
 }
